@@ -1,0 +1,7 @@
+*.gcode
+*.bgcode
+*.stl
+*.3mf
+work
+TODO
+size.scad
