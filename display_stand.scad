@@ -51,7 +51,17 @@ module display_front(frame=[0,0], base_height=3, bevel_height=1.8,
                                      anchor=BOTTOM+CENTER);
   }
 }
- 
+
+// --- base   ----------------------------------------------------------------
+
+module display_base(size=[0,0], z=0, h=0, alpha=30) {
+  // base is a cylinder with a cutout of height h, offset z and angled at alpha
+  difference() {
+    top_half(s=2*size.x) xcyl(l=size.x, d=size.y, anchor=CENTER);
+    xrot(-alpha) zmove(z) cuboid([size.x+FUZZ, h, size.y], anchor=BOTTOM+BACK);
+  }
+}
+
 // --- test-modules   --------------------------------------------------------
 
 module test_simple() {
@@ -76,4 +86,5 @@ module test_simple() {
 
 // --- tests   ----------------------------------------------------------------
 
-test_simple();
+//test_simple();
+//display_base([100,20], z=2, h=W4);
