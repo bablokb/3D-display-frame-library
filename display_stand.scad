@@ -12,7 +12,7 @@ include <dimensions.scad>
 
 // --- back of the stand (display-holder)   ----------------------------------
 
-module _back(
+module display_back(
   frame=[0,0,0],
   display=[0,0,0],
   offset=[0,0,0],
@@ -29,7 +29,7 @@ module _back(
 
 // --- front of the stand (panel)   -----------------------------------------
 
-module _front(
+module display_front(
   frame=[0,0,0],
   cutout=[0,0,0],
   offset=[0,0,0],
@@ -57,10 +57,10 @@ module test_simple() {
   frame   = [display.x+2*border_o, display.y+2*border_o+border_add, display.z+BT];
   cutout  = [display.x-2*border_i, display.y-2*border_i, front_z+2*FUZZ];
 
-  _back(frame, display, offset=[0, border_add/2, frame.z-display.z]);
+  display_back(frame, display, offset=[0, border_add/2, frame.z-display.z]);
 
   color("blue") zmove(frame.z)
-     _front([frame.x, frame.y, front_z], cutout, offset=[0, border_add/2,0]);
+     display_front([frame.x, frame.y, front_z], cutout, offset=[0, border_add/2,0]);
 }
 
 // --- tests   ----------------------------------------------------------------
