@@ -33,4 +33,6 @@ module test_simple() {
 // --- tests   ----------------------------------------------------------------
 
 test_simple();
-ymove(-100) display_base([frame.x,40], z=5, h=frame.z+base_height+GAP);
+xmove(-frame.x-20) {
+  display_base([frame.x,40], z=5, h=frame.z+base_height+GAP, size_feet=[10,70]);
+}
