@@ -52,12 +52,29 @@ module display_front(frame=[0,0], base_height=3, bevel_height=1.8,
   }
 }
 
+// --- feet   ----------------------------------------------------------------
+
+module display_feet(size=[0,0], d=0) {
+  angle = atan(d/2/size.y);
+  top_half(s=2*max(size.x, size.y)+d)
+     zrot(-90) yrot(-90)
+        teardrop(r=d/2, h=size.x, ang=angle);
+}
+
 // --- base   ----------------------------------------------------------------
 
-module display_base(size=[0,0], z=0, h=0, alpha=30) {
+module display_base(size=[0,0], z=0, h=0, alpha=30, feet=true, size_feet=[0,0]) {
   // base is a cylinder with a cutout of height h, offset z and angled at alpha
   difference() {
-    top_half(s=2*size.x) xcyl(l=size.x, d=size.y, anchor=CENTER);
+    union() {
+      top_half(s=2*size.x) xcyl(l=size.x, d=size.y, anchor=CENTER);
+      if (feet) {
+        xmove(-size.x/2+size_feet.x/2)
+            display_feet(size=size_feet, d=size.y);
+        xmove(+size.x/2-size_feet.x/2)
+            display_feet(size=size_feet, d=size.y);
+      }
+    }
     xrot(-alpha) zmove(z) cuboid([size.x+FUZZ, h, size.y], anchor=BOTTOM+BACK);
   }
 }
