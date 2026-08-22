@@ -31,14 +31,27 @@ module display_back(
 
 module display_front(frame=[0,0,0],
                      cutout=[0,0],  offset=[0,0,0],
-                     rounding=3, edges=[BACK+LEFT, BACK+RIGHT]) {
-  difference() {
+                     rounding=3, edges=[BACK+LEFT, BACK+RIGHT],
+                     wall=0, wall_h=0, wall_r=[3,3,0,0]) {
+  // with a wall, slightly increase the size to have a small gap
+  fx = wall ? (frame.x+GAP)/frame.x: 1.0;
+  fy = wall ? (frame.y+GAP)/frame.y: 1.0;
+  // simple front
+  scale([fx,fy,1.0]) difference() {
     color("green") cuboid(size=frame, rounding=rounding, edges=edges,
                           anchor=BOTTOM+CENTER);
     // cutout for display
     zmove(-FUZZ) move(offset) cuboid(size=[cutout.x, cutout.y, frame.z+2*FUZZ],
                                      chamfer=frame.z, edges=[BOTTOM],
                                      anchor=BOTTOM+CENTER);
+  }
+  // optional wall
+  if (wall) {
+    echo("wall=",wall);
+    echo("wall_h=", wall_h);
+    zmove(frame.z)
+      rect_tube(isize=[fx*frame.x-FUZZ,fy*frame.y-FUZZ], wall=wall, h=wall_h,
+                rounding=wall_r, irounding=wall_r, anchor=TOP+CENTER);
   }
 }
 

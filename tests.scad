@@ -23,10 +23,11 @@ cutout  = [display.x-2*border_i, display.y-2*border_i];
 
 module test_simple() {
   display_back(frame_back, display, offset=[0, border_add/2, frame_back.z-display.z]);
-  zmove(frame_back.z+5)
+  zmove(frame_back.z+frame_front.z+5)
      display_front(frame_front,
                    cutout=cutout,
-                   offset=[0, border_add/2,0]);
+                   offset=[0, border_add/2,0],
+                   wall=W4, wall_h=frame_back.z+frame_front.z);
 }
 
 // --- tests   ----------------------------------------------------------------
