@@ -29,25 +29,15 @@ module display_back(
 
 // --- front of the stand (panel)   -----------------------------------------
 
-module display_front(frame=[0,0], base_height=3, bevel_height=1.8,
+module display_front(frame=[0,0,0],
                      cutout=[0,0],  offset=[0,0,0],
-                     rounding_base=3, rounding_bevel=[3, 3, 0, 0],
-                     edges=[BACK+LEFT, BACK+RIGHT]) {
-  cutout_z = base_height + bevel_height + 2*FUZZ;
+                     rounding=3, edges=[BACK+LEFT, BACK+RIGHT]) {
   difference() {
-    union() {
-      // base
-      color("green") cuboid([frame.x, frame.y, base_height], edges=edges,
-                            rounding=rounding_base, anchor=BOTTOM+CENTER);
-      // panel
-      color("blue") move([0, offset.y/2, base_height-FUZZ])
-        prismoid(size1=[frame.x, frame.y-offset.y],
-                 size2=[cutout.x, cutout.y], h=bevel_height,
-                 shift=[offset.x, 0],
-                 rounding=rounding_bevel, anchor=BOTTOM+CENTER);
-    }
+    color("green") cuboid(size=frame, rounding=rounding, edges=edges,
+                          anchor=BOTTOM+CENTER);
     // cutout for display
-    zmove(-FUZZ) move(offset) cuboid(size=[cutout.x, cutout.y, cutout_z],
+    zmove(-FUZZ) move(offset) cuboid(size=[cutout.x, cutout.y, frame.z+2*FUZZ],
+                                     chamfer=frame.z, edges=[BOTTOM],
                                      anchor=BOTTOM+CENTER);
   }
 }
