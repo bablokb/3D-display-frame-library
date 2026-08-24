@@ -25,9 +25,9 @@ module _ii4_acep_mask() {
   move([24.7, ii4_acep_display.y-6.95, 0])
      cuboid([65.6, 10, MAX_Z], anchor=BOTTOM+LEFT+CENTER);
   // bottom screws
-  ymove(12.15) {
-    xmove(28.45) cyl(d=6, h=MAX_Z, anchor=BOTTOM+CENTER);
-    xmove(ii4_acep_display.x-10.25) cyl(d=6, h=MAX_Z, anchor=BOTTOM+CENTER);
+  ymove(12.25) {
+    xmove(28.35) cyl(d=7, h=MAX_Z, anchor=BOTTOM+CENTER);
+    xmove(ii4_acep_display.x-10.35) cyl(d=7, h=MAX_Z, anchor=BOTTOM+CENTER);
   }
   // central block with FPC cable
   move([34.5, -0.5, 0])
@@ -67,7 +67,7 @@ module ii4_acep_mask_test(border=10, h=10) {
   }
 }
 
-//ii4_acep_mask_test(3,4);
+//ii4_acep_mask_test(3,h=4);
 //_ii4_acep_mask();
 //color("lightgray") cuboid(size=ii4_acep_display, anchor=FRONT+LEFT+TOP);
 
