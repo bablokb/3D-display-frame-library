@@ -8,9 +8,10 @@
 // ---------------------------------------------------------------------------
 
 include <display_stand.scad>
+include <joiners.scad>
 
 border_i = 2;
-border_o = 10;
+border_o = 15;
 border_add = 10;
 front_z    = 2;
 
@@ -21,18 +22,31 @@ cutout  = [display.x-2*border_i, display.y-2*border_i];
 
 // --- test-modules   --------------------------------------------------------
 
-module test_simple() {
-  display_back(frame_back, display, offset=[0, border_add/2, frame_back.z-display.z]);
-  zmove(frame_back.z+frame_front.z+5)
+module test_simple(wall=true) {
+  if (!wall) {
+    difference() {
+      display_back(frame_back, display, offset=[0, border_add/2, frame_back.z-display.z]);
+      joiner_mask(size=frame_back);
+    }
+    zmove(frame_back.z+frame_front.z+5) {
+     display_front(frame_front,
+                   cutout=cutout,
+                   offset=[0, border_add/2,0]);
+     joiner(size=frame_front, height=frame_back.z);
+    }
+  } else {
+    display_back(frame_back, display, offset=[0, border_add/2, frame_back.z-display.z]);
+    zmove(frame_back.z+frame_front.z+5)
      display_front(frame_front,
                    cutout=cutout,
                    offset=[0, border_add/2,0],
                    wall=W4, wall_h=frame_back.z+frame_front.z);
+  }
 }
 
 // --- tests   ----------------------------------------------------------------
 
-test_simple();
+test_simple(wall=true);
 xmove(-frame_back.x-20) {
   display_base([frame_front.x,40], z=5, h=frame_front.z+frame_back.z+GAP, size_feet=[10,70]);
 }
