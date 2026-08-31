@@ -7,32 +7,41 @@
 // https://github.com/bablokb/3D-display-stand
 // ---------------------------------------------------------------------------
 
-include <BOSL2/std.scad>
-include <dimensions.scad>
+include <joiners.scad>
 
 // --- back of the stand (display-holder)   ----------------------------------
 
 module display_back(
-  frame=[0,0,0],
-  display=[0,0,0],
-  offset=[0,0,0],
-  rounding=3,
-  edges=[BACK+LEFT, BACK+RIGHT]) {
+  frame=[0,0,0],                     // outer frame
+  display=[0,0,0],                   // physical display size
+  offset=[0,0,0],                    // offset of display within frame
+  rounding=3,                        // rounding of edges
+  edges=[BACK+LEFT, BACK+RIGHT],     // edges (default: back)
+  lock=true) {                       // add locks (dovetail-joiners)
 
   difference() {
     // base of the back
     cuboid(size=frame, rounding=rounding, edges=edges, anchor=BOTTOM+CENTER);
     // cutout for display
     zmove(FUZZ) move(offset) cuboid(size=display, anchor=BOTTOM+CENTER);
+    // cutout for joiners
+    if (lock) {
+      joiner_mask(size=frame);
+    }
   }
 }
 
 // --- front of the stand (panel)   -----------------------------------------
 
-module display_front(frame=[0,0,0],
-                     cutout=[0,0],  offset=[0,0,0],
-                     rounding=3, edges=[BACK+LEFT, BACK+RIGHT],
-                     wall=0, wall_h=0, wall_r=[3,3,0,0]) {
+module display_front(frame=[0,0,0],                  // outer frame
+                     cutout=[0,0],                   // cutout display
+                     offset=[0,0,0],                 // offset of display within frame
+                     rounding=3,                     // rounding of edges
+                     edges=[BACK+LEFT, BACK+RIGHT],  // edges (default: back)
+                     wall=0,                         // width of additional wall
+                     wall_h=0,                       // height of additional wall
+                     wall_r=[3,3,0,0],               // roundings of wall
+                     joiner_z=0) {                   // z of joiners
   // with a wall, slightly increase the size to have a small gap
   fx = wall ? (frame.x+GAP)/frame.x: 1.0;
   fy = wall ? (frame.y+GAP)/frame.y: 1.0;
@@ -42,16 +51,17 @@ module display_front(frame=[0,0,0],
                           anchor=BOTTOM+CENTER);
     // cutout for display
     zmove(-FUZZ) move(offset) cuboid(size=[cutout.x, cutout.y, frame.z+2*FUZZ],
-                                     chamfer=frame.z, edges=[BOTTOM],
+                                     chamfer=frame.z, edges=[TOP],
                                      anchor=BOTTOM+CENTER);
   }
   // optional wall
   if (wall) {
     echo("wall=",wall);
     echo("wall_h=", wall_h);
-    zmove(frame.z)
-      rect_tube(isize=[fx*frame.x-FUZZ,fy*frame.y-FUZZ], wall=wall, h=wall_h,
-                rounding=wall_r, irounding=wall_r, anchor=TOP+CENTER);
+    rect_tube(isize=[fx*frame.x-FUZZ,fy*frame.y-FUZZ], wall=wall, h=wall_h,
+                rounding=wall_r, irounding=wall_r, anchor=BOTTOM+CENTER);
+  } else if (joiner_z) {
+    joiner(size=frame, height=joiner_z);
   }
 }
 
