@@ -13,11 +13,11 @@ include <dimensions.scad>
 
 // --- helper module: joiner   -------------------------------------------------
 
-module _joiner(gender,       // needs to be provided
-               height,       // height (needs to be provided),
-               size=[8,5],   // width, slide (x, y)
-               slope=3,      // the slope
-               $slop=0.1) {  // the slop
+module joiner(gender,       // needs to be provided
+              height,       // height (needs to be provided),
+              size=[8,5],   // width, slide (x, y)
+              slope=3,      // the slope
+              $slop=0.05) { // the slop
   dovetail(gender, slide=size.y, width=size.x, $slop=$slop,
             height=height,
             slope=slope, entry_slot_length=size.y+2, anchor=BOTTOM+FRONT);
@@ -31,10 +31,10 @@ module joiner_mask(size=[0,0,0],     // size of the grid
   h = height == 0 ? min(5, size.z) : height;
   xflip_copy()
     move([size.x/2-offset.x, size.y/2-offset.y, size.z+FUZZ])
-      _joiner("female",h);
+      joiner("female",h);
   xflip_copy()
     move([size.x/2-offset.x, -size.y/2+offset.y, size.z+FUZZ])
-      _joiner("female",h);
+      joiner("female",h);
 }
 
 // --- joiner: male dovetails in a grid   --------------------------------------
@@ -45,10 +45,10 @@ module joiner(size=[0,0,0],     // size of the grid
   h = height==0 ? 5 : height;
   xflip_copy()
     move([size.x/2-offset.x, size.y/2-offset.y, size.z-FUZZ])
-      _joiner("male",h);
+      joiner("male",h);
   xflip_copy()
     move([size.x/2-offset.x, -size.y/2+offset.y, size.z-FUZZ])
-      _joiner("male",h);
+      joiner("male",h);
 }
 
 // --- test outputs   ----------------------------------------------------------
