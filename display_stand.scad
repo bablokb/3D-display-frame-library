@@ -26,7 +26,7 @@ module display_back(
     zmove(FUZZ) move(offset) cuboid(size=display, anchor=BOTTOM+CENTER);
     // cutout for joiners
     if (lock) {
-      joiner_mask(size=frame);
+      joiners_mask(size=frame);
     }
   }
 }
@@ -61,7 +61,7 @@ module display_front(frame=[0,0,0],                  // outer frame
     rect_tube(isize=[fx*frame.x-FUZZ,fy*frame.y-FUZZ], wall=wall, h=wall_h,
                 rounding=wall_r, irounding=wall_r, anchor=BOTTOM+CENTER);
   } else if (joiner_z) {
-    joiner(size=frame, height=joiner_z);
+    joiners(size=frame, height=joiner_z);
   }
 }
 

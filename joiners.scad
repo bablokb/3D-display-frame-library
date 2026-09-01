@@ -23,9 +23,9 @@ module joiner(gender,       // needs to be provided
             slope=slope, entry_slot_length=size.y+2, anchor=BOTTOM+FRONT);
 }
 
-// --- joiner_mask: female dovetails in a grid   -------------------------------
+// --- joiners_mask: female dovetails in a grid   ------------------------------
 
-module joiner_mask(size=[0,0,0],     // size of the grid
+module joiners_mask(size=[0,0,0],     // size of the grid
                    offset=[10,10],   // offset of the joiners from the corners
                    height=0) {       // joiner height  
   h = height == 0 ? min(5, size.z) : height;
@@ -37,11 +37,11 @@ module joiner_mask(size=[0,0,0],     // size of the grid
       joiner("female",h);
 }
 
-// --- joiner: male dovetails in a grid   --------------------------------------
+// --- joiners: male dovetails in a grid   -------------------------------------
 
-module joiner(size=[0,0,0],     // size of the grid
-              offset=[10,10],   // offset of the joiners from the corners
-              height=0) {       // joiner height
+module joiners(size=[0,0,0],     // size of the grid
+               offset=[10,10],   // offset of the joiners from the corners
+               height=0) {       // joiner height
   h = height==0 ? 5 : height;
   xflip_copy()
     move([size.x/2-offset.x, size.y/2-offset.y, size.z-FUZZ])
@@ -53,15 +53,15 @@ module joiner(size=[0,0,0],     // size of the grid
 
 // --- test outputs   ----------------------------------------------------------
 
-module _joiner_test() {
+module _joiners_test() {
   difference() {
     cuboid(size=[140, 110, 10], anchor=BOTTOM+CENTER);
-    joiner_mask(size=[140, 110, 10], height=5);
+    joiners_mask(size=[140, 110, 10], height=5);
   }
   
    color("blue") zmove(25) yrot(180) union() {
     cuboid(size=[140, 110, 2], anchor=BOTTOM+CENTER);
-    joiner(size=[140, 110, 2], height=5);
+    joiners(size=[140, 110, 2], height=5);
   }
 }
-//_joiner_test();
+//_joiners_test();
