@@ -88,6 +88,6 @@ module display_base(size=[0,0], z=0, h=0, alpha=30, feet=true, size_feet=[0,0]) 
             display_feet(size=size_feet, d=size.y);
       }
     }
-    xrot(-alpha) zmove(z) cuboid([size.x+FUZZ, h, size.y], anchor=BOTTOM+BACK);
+    zmove(z) xrot(-alpha) cuboid([size.x+FUZZ, h, size.y], anchor=BOTTOM+BACK);
   }
 }
