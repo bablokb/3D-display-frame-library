@@ -49,3 +49,21 @@ module ii4_acep_mask(size=[0,0,0]) {
   move([size.x/2, -size.y/2,0])
     yrot(180) _ii4_acep_mask(size=size);
 }
+
+// --- test view   ------------------------------------------------------------
+
+module ii4_acep_mask_test(display, border=10, h=10) {
+  difference() {
+    // "display_back()"
+    cuboid([display.x+2*border, display.y+2*border, h], anchor=BOTTOM+CENTER);
+    // minus "display"
+    zmove(h-display.z+FUZZ) {
+      cuboid(size=[display.x+GAP,display.y+GAP,display.z],
+           anchor=BOTTOM+CENTER);
+    // minus mask
+    zmove(FUZZ) ii4_acep_mask(size=display);
+    }
+  }
+}
+
+//ii4_acep_mask_test(display=[97, 69.3, 3.2], border=3, h=4);
