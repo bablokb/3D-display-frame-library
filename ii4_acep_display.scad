@@ -5,7 +5,7 @@
 // Author: Bernhard Bablok
 // License: CC-BY-SA
 //
-// https://github.com/bablokb/3D-display-stand
+// https://github.com/bablokb/3D-display-frame-library
 // ---------------------------------------------------------------------------
 
 include <display_stand.scad>
