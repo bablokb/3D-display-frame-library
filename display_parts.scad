@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// 3D-Model (OpenSCAD): Generic Display Stand: part library.
+// 3D-Model (OpenSCAD): Generic Display F: part library.
 //
 // Author: Bernhard Bablok
 // License: CC-BY-SA

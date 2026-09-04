@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// 3D-Model (OpenSCAD): Generic Display Stand: mask for Inky-Impression 7.3
+// 3D-Model (OpenSCAD): Generic Display Frame Library: mask for Inky-Impression 7.3
 //                      (second generation Spectra6 version, side-mounted buttons)
 //
 // Author: Bernhard Bablok

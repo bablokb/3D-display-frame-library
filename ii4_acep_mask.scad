@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// 3D-Model (OpenSCAD): Generic Display Stand: mask for Inky-Impression 4
+// 3D-Model (OpenSCAD): Generic Display Frame Library: mask for Inky-Impression 4
 //                      (First generation ACEP version)
 //
 // Author: Bernhard Bablok

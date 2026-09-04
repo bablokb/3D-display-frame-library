@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// 3D-Model (OpenSCAD): Generic Display Stand: Tests.
+// 3D-Model (OpenSCAD): Generic Display Frame Library: Tests.
 //
 // Author: Bernhard Bablok
 // License: CC-BY-SA

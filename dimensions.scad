@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// 3D-Model (OpenSCAD): Generic Display Stand: global dimensions.
+// 3D-Model (OpenSCAD): Generic Display Frame Library: global dimensions.
 //
 // Author: Bernhard Bablok
 // License: CC-BY-SA
