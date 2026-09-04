@@ -34,8 +34,9 @@ module display_back(
 // --- front of the stand (panel)   -----------------------------------------
 
 module display_front(frame=[0,0,0],                  // outer frame
-                     cutout=[0,0],                   // cutout display
                      offset=[0,0,0],                 // offset of display within frame
+                     cutout=[0,0],                   // cutout display
+                     coffset=[0,0,0],                // offset of cutout relative to display
                      rounding=3,                     // rounding of edges
                      edges=[BACK+LEFT, BACK+RIGHT],  // edges (default: back)
                      wall=0,                         // width of additional wall
@@ -49,10 +50,10 @@ module display_front(frame=[0,0,0],                  // outer frame
   scale([fx,fy,1.0]) difference() {
     color("green") cuboid(size=frame, rounding=rounding, edges=edges,
                           anchor=BOTTOM+CENTER);
-    // cutout for display
-    zmove(-FUZZ) move(offset) cuboid(size=[cutout.x, cutout.y, frame.z+2*FUZZ],
-                                     chamfer=frame.z, edges=[TOP],
-                                     anchor=BOTTOM+CENTER);
+    // cutout for display (two offsets: the display plus the offset within display)
+    zmove(-FUZZ) move(coffset) move(offset)
+       cuboid(size=[cutout.x, cutout.y, frame.z+2*FUZZ],
+                    chamfer=frame.z, edges=[TOP], anchor=BOTTOM+CENTER);
   }
   // optional wall
   if (wall) {

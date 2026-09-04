@@ -37,7 +37,7 @@ frame_front   = [display.x+2*border_o,
 cutout_front  = [display.x-border_i[0]-border_i[2],
                  display.y-border_i[1]-border_i[3]
                 ];
-offset_front = [0, (border_i[3]-border_i[1])/2, 0];
+cutout_offset = [0, (border_i[3]-border_i[1])/2, 0];
 
 base_x = frame_back.x;
 //base_x = feet_x;                      // generates a single foot
@@ -59,8 +59,9 @@ module back() {
 
 module front() {
   display_front(frame=frame_front,
+                offset=[offset_back.x, offset_back.y, 0],
                 cutout=cutout_front,
-                offset=offset_front,
+                coffset=cutout_offset,
                 joiner_z=frame_back.z);
 }
 
