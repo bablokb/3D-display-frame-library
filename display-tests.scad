@@ -7,7 +7,7 @@
 // https://github.com/bablokb/3D-display-frame-library
 // ---------------------------------------------------------------------------
 
-include <display_stand.scad>
+include <display_parts.scad>
 
 border_i = 2;
 border_o = 15;
