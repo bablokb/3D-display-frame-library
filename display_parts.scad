@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// 3D-Model (OpenSCAD): Generic Display F: part library.
+// 3D-Model (OpenSCAD): Generic Display Frame Library: public modules.
 //
 // Author: Bernhard Bablok
 // License: CC-BY-SA
