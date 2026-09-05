@@ -37,6 +37,7 @@ module display_front(frame=[0,0,0],                  // outer frame
                      offset=[0,0,0],                 // offset of display within frame
                      cutout=[0,0],                   // cutout display
                      coffset=[0,0,0],                // offset of cutout relative to display
+                     chamfer=false,                  // chamfer edges together with a frame
                      rounding=3,                     // rounding of edges
                      edges=[BACK+LEFT, BACK+RIGHT],  // edges (default: back)
                      wall=0,                         // width of additional wall
@@ -46,9 +47,16 @@ module display_front(frame=[0,0,0],                  // outer frame
   // with a wall, slightly increase the size to have a small gap
   fx = wall ? (frame.x+GAP)/frame.x: 1.0;
   fy = wall ? (frame.y+GAP)/frame.y: 1.0;
-  // simple front
+
+  _chamfer = chamfer ? frame.z-FUZZ : 0;
+  _rounding = chamfer ? 0 : rounding;
+  _edges    = chamfer ? [BOTTOM] : edges;
+
   scale([fx,fy,1.0]) difference() {
-    color("green") cuboid(size=frame, rounding=rounding, edges=edges,
+    // simple front
+    color("green") cuboid(size=frame,
+                          rounding=_rounding, chamfer=_chamfer,
+                          edges=_edges,
                           anchor=BOTTOM+CENTER);
     // cutout for display (two offsets: the display plus the offset within display)
     zmove(-FUZZ) move(coffset) move(offset)
