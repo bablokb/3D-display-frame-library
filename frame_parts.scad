@@ -56,7 +56,7 @@ module _strut(size=[0,0,0],    // basic size
   
 // --- tests   ---------------------------------------------------------------
 
-//x = 100; y = 20; z = 40;
+//x = 100; y = 10; z = 40;
 //yflip_copy() ymove(-x/2) _strut(size=[x, y, z], wall=4, front_z=2, back_z=5);
 //xflip_copy()
 //  move([-x/2, 0, 0]) zrot(-90) _strut(size=[x, y, z], wall=4, front_z=2, back_z=5);
