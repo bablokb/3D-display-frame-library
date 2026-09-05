@@ -17,7 +17,7 @@ module joiner(gender,       // needs to be provided
               height,       // height (needs to be provided),
               size=[8,5],   // width, slide (x, y)
               slope=3,      // the slope
-              $slop=0.05) { // the slop
+              $slop=0.1) {  // the slop
   dovetail(gender, slide=size.y, width=size.x, $slop=$slop,
             height=height,
             slope=slope, entry_slot_length=size.y+2, anchor=BOTTOM+FRONT);
