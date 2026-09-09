@@ -8,6 +8,7 @@
 // ---------------------------------------------------------------------------
 
 include <joiners.scad>
+include <frame_parts.scad>
 
 // --- back of the stand (display-holder)   ----------------------------------
 
@@ -107,4 +108,23 @@ module display_base(size=[0,0], z=0, h=0, alpha=30, feet=true, size_feet=[0,0]) 
     }
     zmove(z) xrot(-alpha) cuboid([size.x+FUZZ, h, size.y], anchor=BOTTOM+BACK);
   }
+}
+
+// --- frame   ----------------------------------------------------------------
+
+module display_frame(size=[0,0],      // basic size
+                     d=10,            // diameter of rounded top
+                     wall=4,          // width of wall
+                     total_z=0,       // complete height
+                     front_z=0,       // frame height of display_front()
+                     back_z=0) {      // frame height of display_back()
+
+  // combine four struts to a complete frame
+  strut_x = [size.x, d, total_z];
+  strut_y = [size.y, d, total_z];
+  yflip_copy() ymove(-strut_y.x/2)
+    _frame_strut(size=strut_x, wall=wall, front_z=front_z, back_z=back_z);
+  xflip_copy()
+    move([-strut_x.x/2, 0, 0]) zrot(-90)
+     _frame_strut(size=strut_y, wall=wall, front_z=front_z, back_z=back_z);
 }
