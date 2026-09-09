@@ -8,15 +8,14 @@
 // https://github.com/bablokb/3D-display-frame-library
 // ---------------------------------------------------------------------------
 
-include <BOSL2/std.scad>
-include <dimensions.scad>
+include <joiners.scad>
 
 // --- strut (one side) of a frame   -----------------------------------------
 
-module _strut(size=[0,0,0],    // basic size
-              wall=0,          // width of wall
-              front_z=0,       // frame height of display_front()
-              back_z=0) {      // frame height of display_back()
+module _frame_strut(size=[0,0,0],    // basic size
+              wall=0,                // width of wall
+              front_z=0,             // frame height of display_front()
+              back_z=0) {           // frame height of display_back()
 
   // calculated dimensions
   d   = size.y;
@@ -32,19 +31,25 @@ module _strut(size=[0,0,0],    // basic size
   // build everything from bottom to top
   difference() {
     union() {
-      cuboid([x, wall, z], anchor=BOTTOM+FRONT+CENTER);  // outer wall
-      zmove(z-(z_f+z_b+z_i))                             // inner chamfer
-        color("magenta") cuboid([x, y_b, z_i], chamfer=z_i-FUZZ, edges=BOTTOM+BACK,
-               anchor=BOTTOM+FRONT+CENTER);
-      color("aqua") zmove(z-(z_f+z_b-FUZZ))                            // display_back level
+      // outer wall
+      cuboid([x, wall, z], anchor=BOTTOM+FRONT+CENTER);
+      // chamfer outer wall -> size of display_back()
+      color("magenta") zmove(z-(z_f+z_b+z_i))
+          cuboid([x, y_b, z_i], chamfer=z_i-FUZZ, edges=BOTTOM+BACK,
+                 anchor=BOTTOM+FRONT+CENTER);
+      // inner wall sized to display_back()
+      color("aqua") zmove(z-(z_f+z_b-FUZZ))
         cuboid([x, y_b, z_b], anchor=BOTTOM+FRONT+CENTER);
-      zmove(z-z_f-FUZZ)                                  // display_front level
-        color("blue") cuboid([x, y, z_f], chamfer=z_f-FUZZ, edges=BOTTOM+BACK,
+      // chamfer up to size.y. display_front() must be chamfered as well
+      color("blue") zmove(z-z_f-FUZZ)
+        cuboid([x, y, z_f], chamfer=z_f-FUZZ, edges=BOTTOM+BACK,
                anchor=BOTTOM+FRONT+CENTER);
-      color("red") move([0,d/2,z-FUZZ]) difference() {
-        xcyl(d=d, h=size.x, anchor=CENTER);
-        cuboid([x+FUZZ,d,d], anchor=TOP+CENTER);
-      }
+      // top rounding of frame (half of a cylinder)
+      color("red") move([0,d/2,z-FUZZ])
+        difference() {
+          xcyl(d=d, h=size.x, anchor=CENTER);
+          cuboid([x+FUZZ,d,d], anchor=TOP+CENTER);
+        }
     }
     // minus everything below zero
     cuboid([x+FUZZ,y,z], anchor=TOP+CENTER);
@@ -53,10 +58,3 @@ module _strut(size=[0,0,0],    // basic size
       zrot(-45) cuboid([y,4*y,y+z+FUZZ], anchor=RIGHT+BOTTOM+CENTER);
   }
 }
-  
-// --- tests   ---------------------------------------------------------------
-
-//x = 100; y = 10; z = 40;
-//yflip_copy() ymove(-x/2) _strut(size=[x, y, z], wall=4, front_z=2, back_z=5);
-//xflip_copy()
-//  move([-x/2, 0, 0]) zrot(-90) _strut(size=[x, y, z], wall=4, front_z=2, back_z=5);
