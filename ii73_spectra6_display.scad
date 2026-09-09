@@ -42,7 +42,7 @@ cutout_offset = [0, (border_i[3]-border_i[1])/2, 0];
 base_x = frame_back.x;
 //base_x = feet_x;                      // generates a single foot
 base_d = 4*(display.z+BT+front_z);
-base_h = frame_front.z+frame_back.z+GAP/2;
+base_h = frame_front.z+frame_back.z+GAP;
 base_z = 4;
 feet_y = cos(90-base_angle)*frame_back.y;
 
