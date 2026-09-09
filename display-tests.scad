@@ -18,6 +18,7 @@ display = [100, 75, 4];
 frame_back  = [display.x+2*border_o, display.y+2*border_o+border_add, display.z+BT];
 frame_front = [display.x+2*border_o, display.y+2*border_o+border_add, front_z];
 cutout  = [display.x-2*border_i, display.y-2*border_i];
+frame_z = frame_back.z + frame_front.z + 40;
 
 // --- test-modules   --------------------------------------------------------
 
@@ -58,3 +59,9 @@ ymove(-frame_back.y-20) test_chamfer();
 
 xmove(-frame_back.x-20)
   display_base([frame_front.x,40], z=5, h=frame_front.z+frame_back.z+GAP, size_feet=[10,70]);
+
+xmove(frame_back.x+20)
+  display_frame(size=[frame_back.x,frame_back.y],      // basic size
+                     total_z=frame_z,                  // complete height
+                     front_z=frame_front.z,            // frame height of display_front()
+                     back_z=frame_back.z);             // frame height of display_back()#
