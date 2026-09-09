@@ -18,7 +18,7 @@ module display_back(
   rounding=3,                        // rounding of edges
   edges=[BACK+LEFT, BACK+RIGHT],     // edges (default: back)
   jlock=true,                        // add joiner lock mask (dovetail-joiners)
-  wlock=false) {                     // add wall-lock mask
+  wall_lock=0) {                     // add wall-lock mask of given depth
 
   difference() {
     // base of the back
@@ -28,6 +28,9 @@ module display_back(
     // cutout for joiners
     if (jlock) {
       joiners_mask(size=frame);
+    }
+    if (wall_lock) {
+      zmove(frame.z/2) wall_lock(size=frame, d=wall_lock, mask=true);
     }
   }
 }
@@ -44,6 +47,7 @@ module display_front(frame=[0,0,0],                  // outer frame
                      wall=0,                         // width of additional wall
                      wall_h=0,                       // height of additional wall
                      wall_r=[3,3,0,0],               // roundings of wall
+                     wall_lock=0,                    // add wall-lock of given depth
                      joiner_z=0) {                   // z of joiners
   // with a wall, slightly increase the size to have a small gap
   fx = wall ? (frame.x+GAP)/frame.x: 1.0;
@@ -68,8 +72,11 @@ module display_front(frame=[0,0,0],                  // outer frame
   if (wall) {
     echo("wall=",wall);
     echo("wall_h=", wall_h);
-    rect_tube(isize=[fx*frame.x-FUZZ,fy*frame.y-FUZZ], wall=wall, h=wall_h,
+    rect_tube(isize=[fx*frame.x-FUZZ,fy*frame.y-FUZZ], wall=wall, h=wall_h+frame.z,
                 rounding=wall_r, irounding=wall_r, anchor=BOTTOM+CENTER);
+    if (wall_lock) {
+      zmove(frame.z+wall_h/2) wall_lock(size=frame, d=wall_lock);
+    }
   } else if (joiner_z) {
     joiners(size=frame, height=joiner_z);
   }
