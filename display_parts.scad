@@ -17,7 +17,8 @@ module display_back(
   offset=[0,0,0],                    // offset of display within frame
   rounding=3,                        // rounding of edges
   edges=[BACK+LEFT, BACK+RIGHT],     // edges (default: back)
-  lock=true) {                       // add locks (dovetail-joiners)
+  jlock=true,                        // add joiner lock mask (dovetail-joiners)
+  wlock=false) {                     // add wall-lock mask
 
   difference() {
     // base of the back
@@ -25,7 +26,7 @@ module display_back(
     // cutout for display
     zmove(FUZZ) move(offset) cuboid(size=display, anchor=BOTTOM+CENTER);
     // cutout for joiners
-    if (lock) {
+    if (jlock) {
       joiners_mask(size=frame);
     }
   }

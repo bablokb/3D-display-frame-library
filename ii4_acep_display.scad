@@ -52,7 +52,7 @@ module back() {
   difference() {
     display_back(frame=frame_back,
                  display=[display.x+GAP, display.y+GAP, display.z],
-                 offset=offset_back, lock=true);
+                 offset=offset_back, jlock=true);
     zmove(frame_back.z-display.z+2*FUZZ) ii4_acep_mask(size=display);
   }
 }

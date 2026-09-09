@@ -23,7 +23,7 @@ cutout  = [display.x-2*border_i, display.y-2*border_i];
 
 module test_wall() {
   display_back(frame_back, display, offset=[0, border_add/2, frame_back.z-display.z],
-               lock=false);
+               jlock=false);
   zmove(frame_back.z+frame_front.z+15)
    display_front(frame_front,
                  cutout=cutout,
