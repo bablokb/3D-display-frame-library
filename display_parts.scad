@@ -120,8 +120,8 @@ module display_frame(size=[0,0],      // basic size
                      back_z=0) {      // frame height of display_back()
 
   // combine four struts to a complete frame
-  strut_x = [size.x, d, total_z];
-  strut_y = [size.y, d, total_z];
+  strut_x = [size.x+2*(d-front_z), d, total_z];
+  strut_y = [size.y+2*(d-front_z), d, total_z];
   yflip_copy() ymove(-strut_y.x/2)
     _frame_strut(size=strut_x, wall=wall, front_z=front_z, back_z=back_z);
   xflip_copy()
