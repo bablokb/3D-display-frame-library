@@ -62,6 +62,7 @@ xmove(-frame_back.x-20)
 
 xmove(frame_back.x+20)
   display_frame(size=[frame_back.x,frame_back.y],      // basic size
+                     wall_lock=W4,
                      total_z=frame_z,                  // complete height
                      front_z=frame_front.z,            // frame height of display_front()
                      back_z=frame_back.z);             // frame height of display_back()#
