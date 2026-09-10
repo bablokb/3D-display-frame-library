@@ -115,16 +115,23 @@ module display_base(size=[0,0], z=0, h=0, alpha=30, feet=true, size_feet=[0,0]) 
 module display_frame(size=[0,0],      // basic size
                      d=10,            // diameter of rounded top
                      wall=4,          // width of wall
-                     total_z=0,       // complete height
+                     wall_lock=0,     // add wall-lock of given depth
+                     total_z=0,       // complete height without rounded top
                      front_z=0,       // frame height of display_front()
                      back_z=0) {      // frame height of display_back()
 
   // combine four struts to a complete frame
-  strut_x = [size.x+2*(d-front_z), d, total_z];
-  strut_y = [size.y+2*(d-front_z), d, total_z];
+  strut_x = [size.x+2*(d-front_z)+GAP, d, total_z];
+  strut_y = [size.y+2*(d-front_z)+GAP, d, total_z];
   yflip_copy() ymove(-strut_y.x/2)
     _frame_strut(size=strut_x, wall=wall, front_z=front_z, back_z=back_z);
   xflip_copy()
     move([-strut_x.x/2, 0, 0]) zrot(-90)
      _frame_strut(size=strut_y, wall=wall, front_z=front_z, back_z=back_z);
+
+  // add wall-locks
+  if (wall_lock) {
+    zmove(total_z-front_z-back_z/2)
+      wall_lock(size=[size.x+GAP, size.y+GAP], d=wall_lock);
+  }
 }
