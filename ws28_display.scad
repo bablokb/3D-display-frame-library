@@ -52,7 +52,7 @@ module back() {
     display_back(frame=frame_back,
                  display=[display.x+GAP, display.y+GAP, display.z],
                  offset=offset_back, jlock=false, wall_lock=W2, rounding=0);
-    zmove(frame_back.z-display.z+2*FUZZ) ws28_mask(size=display);
+    zmove(frame_back.z-display.z+2*FUZZ) move(offset_back) ws28_mask(size=display);
   }
 }
 
@@ -88,4 +88,3 @@ xmove(frame_front.x + 20)
   front();
 xmove(-frame_front.x - 20)
   frame();
-
