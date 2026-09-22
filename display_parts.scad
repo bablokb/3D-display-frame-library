@@ -121,8 +121,8 @@ module display_frame(size=[0,0],      // basic size
                      back_z=0) {      // frame height of display_back()
 
   // combine four struts to a complete frame
-  strut_x = [size.x+2*(d-front_z)+GAP, d, total_z];
-  strut_y = [size.y+2*(d-front_z)+GAP, d, total_z];
+  strut_x = [size.x+2*(d-front_z)+2*GAP, d, total_z];
+  strut_y = [size.y+2*(d-front_z)+2*GAP, d, total_z];
   yflip_copy() ymove(-strut_y.x/2)
     _frame_strut(size=strut_x, wall=wall, front_z=front_z, back_z=back_z);
   xflip_copy()
@@ -132,6 +132,6 @@ module display_frame(size=[0,0],      // basic size
   // add wall-locks
   if (wall_lock) {
     zmove(total_z-front_z-back_z/2)
-      wall_lock(size=[size.x+GAP, size.y+GAP], d=wall_lock);
+      wall_lock(size=[size.x+2*GAP, size.y+2*GAP], d=wall_lock);
   }
 }
