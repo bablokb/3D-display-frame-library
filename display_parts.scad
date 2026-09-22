@@ -66,7 +66,7 @@ module display_front(frame=[0,0,0],                  // outer frame
                           anchor=BOTTOM+CENTER);
     // cutout for display (two offsets: the display plus the offset within display)
     zmove(-FUZZ) move(coffset) move(offset)
-       cuboid(size=[cutout.x, cutout.y, frame.z+2*FUZZ],
+       cuboid(size=[cutout.x+2*frame.z, cutout.y+2*frame.z, frame.z+2*FUZZ],
                     chamfer=frame.z, edges=[TOP], anchor=BOTTOM+CENTER);
   }
   // optional wall
