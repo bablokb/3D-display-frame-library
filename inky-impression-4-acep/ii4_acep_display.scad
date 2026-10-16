@@ -8,7 +8,7 @@
 // https://github.com/bablokb/3D-display-frame-library
 // ---------------------------------------------------------------------------
 
-include <display_parts.scad>
+include <../display_parts.scad>
 include <ii4_acep_mask.scad>
 
 // --- dimensions of the display   -------------------------------------------

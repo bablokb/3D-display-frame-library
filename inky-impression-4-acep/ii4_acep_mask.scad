@@ -9,7 +9,7 @@
 // ---------------------------------------------------------------------------
 
 include <BOSL2/std.scad>
-include <dimensions.scad>
+include <../dimensions.scad>
 
 MAX_Z = 40;   // full height to force mask to create cutouts
 

@@ -8,7 +8,7 @@
 // https://github.com/bablokb/3D-display-frame-library
 // ---------------------------------------------------------------------------
 
-include <display_parts.scad>
+include <../display_parts.scad>
 include <ii73_spectra6_mask.scad>
 
 // --- dimensions of the display   -------------------------------------------
